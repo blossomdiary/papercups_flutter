@@ -8,11 +8,15 @@ PhoenixChannel? joinConversationAndListen({
   required String convId,
   required PhoenixChannel? conversation,
   required PhoenixSocket socket,
+  String? customerId,
   required Function? setState,
   required Function setChannel,
 }) {
   // Adding the channel.
-  conversation = socket.addChannel(topic: "conversation:$convId");
+  conversation = socket.addChannel(
+    topic: "conversation:$convId",
+    parameters: customerId != null ? {"customer_id": customerId} : null,
+  );
   // Joining channel.
   if (conversation.state == PhoenixChannelState.closed) conversation.join();
   // Function to set the channel.

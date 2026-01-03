@@ -12,7 +12,7 @@ initChannels(
   bool canJoinConversation,
   Function setState,
 ) {
-  if (connected & socket.channels.isEmpty) {
+  if (connected && socket.channels.isEmpty) {
     channel = socket.addChannel(
       topic: 'room:${props.accountId}',
     );

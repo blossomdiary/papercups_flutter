@@ -53,6 +53,7 @@ Future<bool> getCustomerHistory({
           setChannel: setConversationChannel!,
           setState: rebuild,
           socket: socket!,
+          customerId: customer.id,
           messages: messages,
         );
       }

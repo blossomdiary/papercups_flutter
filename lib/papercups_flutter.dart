@@ -82,7 +82,14 @@ class _PapercupsWidgetState extends State<PapercupsWidget> {
       );
     }
     if (_socket == null) {
-      _socket = PhoenixSocket("wss://${widget.props.baseUrl}/socket/websocket")
+      _socket = PhoenixSocket(
+        "wss://${widget.props.baseUrl}/socket/websocket",
+        socketOptions: PhoenixSocketOptions(
+          params: {
+            "account_id": widget.props.accountId,
+          },
+        ),
+      )
         ..connect();
       _subscribeToSocket();
     }
@@ -245,7 +252,13 @@ class _PapercupsWidgetState extends State<PapercupsWidget> {
                       if (!_socket!.isConnected) {
                         _socket!.dispose();
                         _socket = PhoenixSocket(
-                            "wss://${widget.props.baseUrl}/socket/websocket")
+                          "wss://${widget.props.baseUrl}/socket/websocket",
+                          socketOptions: PhoenixSocketOptions(
+                            params: {
+                              "account_id": widget.props.accountId,
+                            },
+                          ),
+                        )
                           ..connect();
                         _subscribeToSocket();
                       }
@@ -368,6 +381,11 @@ class _PapercupsWidgetState extends State<PapercupsWidget> {
 
     _socket!.openStream.listen(
       (event) {
+        if (!_connected && mounted) {
+          setState(() {
+            _connected = true;
+          });
+        }
         if (noConnection && mounted) {
           rebuild(() {
             noConnection = false;

@@ -309,6 +309,7 @@ void _sendMessage(
               convId: conversationDetails.id!,
               conversation: conversationChannel,
               socket: socket!,
+              customerId: customerDetails.id,
               setState: setState,
               setChannel: setConvChannel!,
             )!;
