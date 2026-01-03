@@ -5,6 +5,7 @@ import 'package:papercups_flutter/utils/color_mod.dart';
 import 'package:papercups_flutter/widgets/chat/attachment.dart';
 import 'package:papercups_flutter/widgets/chat/time_widget.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:url_launcher/url_launcher.dart';
 
 import 'chat_message.dart';
 
@@ -145,6 +146,17 @@ class ChatBubble extends StatelessWidget {
                   if (msg.body != 'null')
                     MarkdownBody(
                       data: text,
+                      selectable: true,
+                      onTapLink: (_, href, __) async {
+                        if (href == null) {
+                          return;
+                        }
+                        final uri = Uri.tryParse(href);
+                        if (uri == null) {
+                          return;
+                        }
+                        await launchUrl(uri);
+                      },
                       styleSheet: MarkdownStyleSheet(
                           blockquote: const TextStyle(
                               decoration: TextDecoration.underline),

@@ -6,13 +6,10 @@ import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:papercups_flutter/utils/constant.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import '../../models/models.dart';
 
 import 'chat_bubble.dart';
-import '../widgets.dart';
 
 class ChatMessage extends StatefulWidget {
   const ChatMessage({
@@ -123,22 +120,6 @@ class _ChatMessageState extends State<ChatMessage> {
       onTap: () async {
         setState(() => isTimeSentVisible = true);
         widget.onMessageBubbleTap?.call(msg);
-      },
-      onLongPress: () {
-        HapticFeedback.vibrate();
-        final data = ClipboardData(text: text);
-        Clipboard.setData(data);
-        Alert.show(
-          widget.props.translations.textCopiedText,
-          context,
-          textStyle: widget.props.style.chatCopiedTextAlertTextStyle ??
-              Theme.of(context).textTheme.bodyMedium,
-          backgroundColor:
-              widget.props.style.chatCopiedTextAlertBackgroundColor ??
-                  BottomAppBarTheme.of(context).color ?? defaultBackgroundColor,
-          gravity: Alert.bottom,
-          duration: Alert.lengthLong,
-        );
       },
       onTapUp: (_) {
         Timer(
