@@ -176,9 +176,9 @@ class ChatBubble extends StatelessWidget {
                                               ?.color,
                                     ),
                           a: TextStyle(
-                            color: userSent
-                                ? Colors.white
-                                : Theme.of(context).textTheme.bodyLarge!.color,
+                            color: widget.props.style.primaryColor,
+                            decoration: TextDecoration.underline,
+                            decorationColor: widget.props.style.primaryColor,
                           ),
                           blockquotePadding: const EdgeInsets.only(bottom: 2),
                           blockquoteDecoration: BoxDecoration(
